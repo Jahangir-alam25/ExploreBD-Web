@@ -78,7 +78,7 @@
   --radius: 0.625rem;
 
   /* Light Theme Backgrounds */
-  --background: rgb(40 30% 97%); /* White */
+  --background: rgb(255, 255, 255); /* White */
   --background-secondary: rgb(200 25% 15%);
   --background-tertiary: rgb(245, 245, 245);
   --foreground: rgb(37, 37, 37); /* Dark text */
