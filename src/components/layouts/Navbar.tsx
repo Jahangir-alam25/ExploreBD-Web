@@ -66,7 +66,7 @@ export default function Navbar() {
         </div>
 
         <button className="bg-yellow-400 px-6 py-2 rounded font-semibold">
-          Login
+<a href="/auth">Login</a>
         </button>
       </div>
 
