@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Navbar from "@/components/layouts/Navbar";
+
 
 export default function Home() {
   return (
 <div>
-  <h1>ExploreBD</h1>
+<Navbar />
 </div>
   );
 }
