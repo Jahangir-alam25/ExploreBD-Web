@@ -45,7 +45,7 @@ const sidebarItems = [
   { id: 'overview', name: 'Dashboard', icon: BarChart3, section: 'main', path: '/dashboard' },
 
   // Booking Related
-  { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/my-bookings' },
+  { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/MyBookings' },
   { id: 'wishlist', name: 'Wishlist', icon: Heart, section: 'booking', path: '/dashboard/wishlist' },
   { id: 'reviews', name: 'My Reviews', icon: Star, section: 'booking', path: '/dashboard/reviews' },
 
@@ -194,7 +194,9 @@ const sections = {
           <div className="w-8 h-8 bg-gradient-to-r from-green-primary to-green-accent rounded-lg flex items-center justify-center">
             <Bot className="h-5 w-5 text-primary-foreground" />
           </div>
-          {!collapsed && <Link href="/"><span className="ml-2 text-xl font-bold gradient-text">Explore BD</span></Link>}
+          {!collapsed && <Link href="/" className="flex items-center gap-2 text-black dark:text-white text-xl font-bold">
+             <div className="border-2 border-black dark:border-white p-2 rounded"><MapPin /></div>
+            Explore<span className="text-yellow-400">BD</span></Link>}
         </div>
         <button
           onClick={toggleCollapsed}
