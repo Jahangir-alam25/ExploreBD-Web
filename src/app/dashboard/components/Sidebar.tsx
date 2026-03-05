@@ -47,7 +47,7 @@ const sidebarItems = [
   { id: 'overview', name: 'Dashboard', icon: BarChart3, section: 'main', path: '/dashboard' },
 
   // Booking Related
-  { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/MyBookings' },
+  { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/my-bookings' },
   { id: 'wishlist', name: 'Wishlist', icon: Heart, section: 'booking', path: '/dashboard/wishlist' },
   { id: 'reviews', name: 'My Reviews', icon: Star, section: 'booking', path: '/dashboard/reviews' },
 
