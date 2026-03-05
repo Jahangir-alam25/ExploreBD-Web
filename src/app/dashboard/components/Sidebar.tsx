@@ -29,6 +29,8 @@ import { useActiveTab } from '../dashcontext/ActiveTabContext';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -50,9 +52,9 @@ const sidebarItems = [
   { id: 'reviews', name: 'My Reviews', icon: Star, section: 'booking', path: '/dashboard/reviews' },
 
   // Explore
-  { id: 'tours', name: 'All Tours', icon: Map, section: 'explore', path: '/tours' },
-  { id: 'destinations', name: 'Destinations', icon: MapPin, section: 'explore', path: '/destinations' },
-  { id: 'offers', name: 'Special Offers', icon: Tag, section: 'explore', path: '/offers' },
+  { id: 'tours', name: 'All Tours', icon: Map, section: 'explore', path: '/dashboard/tours' },
+  { id: 'destinations', name: 'Destinations', icon: MapPin, section: 'explore', path: '/dashboard/destinations' },
+  { id: 'offers', name: 'Special Offers', icon: Tag, section: 'explore', path: '/dashboard/special-offers' },
 
   // Payments
   { id: 'payment-history', name: 'Payment History', icon: CreditCard, section: 'payment', path: '/dashboard/payments' },
@@ -189,7 +191,7 @@ const sections = {
       style={{ width: `${width}px`, flexShrink: 0 }}
     >
       {/* Logo + Toggle */}
-      <div className="flex items-center justify-between h-[75px] px-4 border-b border-border relative">
+      <div className="flex items-center justify-between h-[64px] px-4 border-b border-border relative">
         <div className="flex items-center ">
           <div className="w-8 h-8 bg-gradient-to-r from-green-primary to-green-accent rounded-lg flex items-center justify-center">
             <Bot className="h-5 w-5 text-primary-foreground" />
@@ -205,6 +207,21 @@ const sections = {
           {collapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
         </button>
       </div>
+
+        {/* User info */}
+        {!collapsed && (
+          <div className="px-4 py-4 border-b border-border">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10 border-2 border-primary/20">
+                <AvatarFallback className="bg-primary/10 text-primary font-semibold">RA</AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-foreground truncate">Rahim Ahmed</p>
+                <p className="text-xs text-muted-foreground truncate">rahim@example.com</p>
+              </div>
+            </div>
+          </div>
+        )}
 
       {/* Navigation */}
       <nav className="flex-1 px-2 py-4 space-y-6 overflow-y-auto custom-scroll">
