@@ -1,12 +1,7 @@
-// app/auth/layout.tsx
-
 import React from 'react';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <body>
-      
-
     <div
       className="auth-bg min-h-screen flex items-center justify-center text-green-200 relative px-4"
       style={{
@@ -19,9 +14,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {children}
 
     </div>
-
-       </body>
   );
 }
-
 
