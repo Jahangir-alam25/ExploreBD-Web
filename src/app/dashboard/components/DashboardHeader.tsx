@@ -23,6 +23,16 @@ export function DashboardHeader() {
   "/dashboard/profile": "My Profile",
   "/dashboard/settings": "Settings",
   "/dashboard/support": "Help & Support",
+  "/dashboard/adminDashboard": "Admin Dashboard",
+  "/dashboard/admin/adminTours": "Manage Tours",
+  "/dashboard/admin/adminBookings": "Manage Bookings",
+  "/dashboard/admin/adminUsers": "User Management",
+  "/dashboard/admin/adminDestinations": "Manage Destinations",
+  "/dashboard/admin/adminReviews": "Review Moderation",
+  "/dashboard/admin/adminPayments": "Payment & Revenue",
+  "/dashboard/admin/adminBlog": "Blog Management",
+  "/dashboard/admin/adminReports": "Reports & Analytics",
+  "/dashboard/admin/adminSettings": "Admin Settings"
 };
 
   const pathname = usePathname();

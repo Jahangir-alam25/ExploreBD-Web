@@ -21,6 +21,10 @@ import {
   PanelLeftOpen,
   PanelLeftClose,
   LogOut,
+  LayoutDashboard,
+  Package,
+  CalendarCheck,
+  FileText,
 } from "lucide-react";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -41,7 +45,11 @@ const Sidebar = ({ collapsed: collapsedProp, setCollapsed: setCollapsedProp }: S
   const { user, logout } = useAuth();
   const { activeTab, setActiveTab } = useActiveTab();
 
-
+// const user = {
+//   name: "Rahim Ahmed",
+//   email: "rahim@example.com",
+//   role: "User",
+// };
 const sidebarItems = [
   // Main
   { id: 'overview', name: 'Dashboard', icon: BarChart3, section: 'main', path: '/dashboard' },
@@ -67,10 +75,17 @@ const sidebarItems = [
   { id: 'support', name: 'Support / Help', icon: HelpCircle, section: 'support', path: '/dashboard/support' },
 
   // Admin (Role Based)
-  { id: 'admin-panel', name: 'Admin Panel', icon: Shield, section: 'admin', path: '/dashboard/admin' },
-  { id: 'manage-tours', name: 'Manage Tours', icon: Briefcase, section: 'admin', path: '/dashboard/admin/tours' },
-  { id: 'manage-users', name: 'User Management', icon: Users, section: 'admin', path: '/dashboard/admin/users' },
-  { id: 'manage-bookings', name: 'Manage Bookings', icon: ClipboardList, section: 'admin', path: '/dashboard/admin/bookings' },
+ 
+  { id: "dashboard", name: "Dashboard", icon: LayoutDashboard, section: "admin", path: "/dashboard/admin/adminDashboard" },
+  { id: "manage-tours", name: "Manage Tours", icon: Package, section: "admin", path: "/dashboard/admin/adminTours" },
+  { id: "bookings", name: "Bookings", icon: CalendarCheck, section: "admin", path: "/dashboard/admin/adminBookings" },
+  { id: "users", name: "Users", icon: Users, section: "admin", path: "/dashboard/admin/adminUsers" },
+  { id: "destinations", name: "Destinations", icon: MapPin, section: "admin", path: "/dashboard/admin/adminDestinations" },
+  { id: "reviews", name: "Reviews", icon: Star, section: "admin", path: "/dashboard/admin/adminReviews" },
+  { id: "payments", name: "Payments", icon: CreditCard, section: "admin", path: "/dashboard/admin/adminPayments" },
+  { id: "blog-posts", name: "Blog Posts", icon: FileText, section: "admin", path: "/dashboard/admin/adminBlog" },
+  { id: "reports", name: "Reports", icon: BarChart3, section: "admin", path: "/dashboard/admin/adminReports" },
+  { id: "settings", name: "Settings", icon: Settings, section: "admin", path: "/dashboard/admin/adminSettings" },
 ];
 
 
@@ -86,12 +101,32 @@ const sections = {
 };
 
   // Role-based filtering
-  const filteredSidebarItems = sidebarItems.filter(item => {
-    if (item.section === 'admin') {
-      return user?.role === 'System Admin' || user?.role === 'Admin';
-    }
-    return true;
-  });
+  // const filteredSidebarItems = sidebarItems.filter(item => {
+  //   if (item.section === 'admin') {
+  //     return user?.role === 'System Admin' || user?.role === 'Admin';
+  //   }
+  //   return true;
+  // });
+
+ const filteredSidebarItems = sidebarItems.filter((item) => {
+
+  // Admin routes
+  if (item.section === "admin") {
+    return user?.role === "System Admin" || user?.role === "Admin";
+  }
+
+  // Non-admin routes (user routes)
+  if (user?.role === "user") {
+    return item.section !== "admin";
+  }
+
+  // If admin, hide normal user sections
+  if (user?.role === "System Admin" || user?.role === "Admin") {
+    return item.section === "admin";
+  }
+
+  return false;
+});
 
   const groupedItems = filteredSidebarItems.reduce((acc, item) => {
     if (!acc[item.section]) acc[item.section] = [];
@@ -156,6 +191,11 @@ const sections = {
     if (setCollapsedProp) setCollapsedProp(newCollapsed);
   };
 
+   // Get user initials for avatar
+  const getUserInitials = (name: string): string => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   const handleLogout = async () => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -213,11 +253,11 @@ const sections = {
           <div className="px-4 py-4 border-b border-border">
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10 border-2 border-primary/20">
-                <AvatarFallback className="bg-primary/10 text-primary font-semibold">RA</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary font-semibold">{getUserInitials( user?.name || user?.email || 'U')}</AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground truncate">Rahim Ahmed</p>
-                <p className="text-xs text-muted-foreground truncate">rahim@example.com</p>
+                <p className="text-sm font-semibold text-foreground truncate">{user?.name}</p>
+                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
               </div>
             </div>
           </div>
@@ -247,17 +287,8 @@ const sections = {
         ))}
       </nav>
 
-      {/* User Profile */}
+     
       <div className="p-4 border-t border-border flex-shrink-0">
-        {!collapsed && (
-          <div className="flex items-center space-x-3 mb-4">
-       
-            <div>
-              <p className="font-medium text-sm">{user?.name}</p>
-              <p className="text-xs text-muted-foreground">{user?.email}</p>
-            </div>
-          </div>
-        )}
         <Button variant="outline" size="sm" className="w-full hover:scale-105 transition-transform" onClick={handleLogout}>
           <LogOut className="h-3 w-3 mr-2" />
           {!collapsed && 'Sign Out'}

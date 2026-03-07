@@ -1,0 +1,162 @@
+// src/app/api/auth/[...nextauth]/route.ts
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { connectDB } from "@/lib/mongodbNative";
+import { logAdminActivity } from "@/lib/logAdminActivity";
+
+interface GoogleProfile {
+  email?: string;
+  name?: string;
+  given_name?: string;
+  family_name?: string;
+  sub?: string;
+}
+
+interface AuthUser {
+  id: string;
+  name?: string | null;
+  email: string;
+  role: string;
+}
+
+// Create the NextAuth handler
+const authHandler = NextAuth({
+  providers: [
+    // ---------- GOOGLE LOGIN ----------
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+
+    // ---------- EMAIL/PASSWORD LOGIN ----------
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          // optional: log missing credential attempt
+          await logAdminActivity(`Missing credentials attempt`, "warning", "auth", null);
+          throw new Error("Missing credentials");
+        }
+
+        const email = credentials.email.trim().toLowerCase();
+        const { db } = await connectDB();
+        const users = db.collection("users");
+
+        const user = await users.findOne({ email });
+        if (!user) {
+          await logAdminActivity(`Failed login: email not found (${email})`, "warning", "auth", null);
+          throw new Error("Email not found");
+        }
+        if (!user.isVerified) {
+          await logAdminActivity(`Failed login: unverified email (${email})`, "warning", "auth", user._id?.toString?.() ?? null);
+          throw new Error("Please verify your email first");
+        }
+        if (!user.password) {
+          await logAdminActivity(`Failed login: account uses Google login (${email})`, "warning", "auth", user._id?.toString?.() ?? null);
+          throw new Error("This account uses Google login.");
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+        if (!isPasswordCorrect) {
+          await logAdminActivity(`Failed login: incorrect password (${email})`, "warning", "auth", user._id?.toString?.() ?? null);
+          throw new Error("Password is incorrect");
+        }
+
+        // Successful credential login
+        await logAdminActivity(`User logged in (credentials): ${email}`, "success", "auth", user._id?.toString?.() ?? null);
+
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role || "user",
+        };
+      },
+    }),
+  ],
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
+  callbacks: {
+    // ---------- SIGN IN CALLBACK ----------
+    async signIn({ account, profile }) {
+      const { db } = await connectDB();
+
+      if (account?.provider === "google") {
+        const googleProfile = profile as GoogleProfile;
+        const email = googleProfile.email;
+        if (!email) return false;
+
+        const users = db.collection("users");
+        const dbUser = await users.findOne({ email });
+
+        if (!dbUser) {
+          // Create new Google user WITHOUT password
+          const newUser = {
+            email,
+            name: googleProfile.name || `${googleProfile.given_name || ""} ${googleProfile.family_name || ""}`.trim(),
+            role: "user",
+            isVerified: true,
+            googleId: googleProfile.sub,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          };
+          const insertRes = await users.insertOne(newUser);
+          await logAdminActivity(`New Google user created: ${email}`, "success", "auth", insertRes.insertedId?.toString?.() ?? null);
+        } else if (!dbUser.isVerified) {
+          await users.updateOne(
+            { email },
+            { $set: { isVerified: true, updatedAt: new Date() } }
+          );
+          await logAdminActivity(`User verified via Google: ${email}`, "success", "auth", dbUser._id?.toString?.() ?? null);
+        } else {
+          // existing google login sign in
+          await logAdminActivity(`User signed in (google): ${email}`, "success", "auth", dbUser._id?.toString?.() ?? null);
+        }
+      }
+
+      return true;
+    },
+
+    // ---------- JWT CALLBACK ----------
+    async jwt({ token, user }) {
+      if (user) {
+        const authUser = user as AuthUser;
+        token.id = authUser.id ?? token.id;
+        token.name = authUser.name ?? token.name;
+        token.email = authUser.email ?? token.email;
+        token.role = authUser.role ?? token.role ?? "user";
+      }
+      return token;
+    },
+
+    // ---------- SESSION CALLBACK ----------
+    async session({ session, token }) {
+      session.user = {
+        id: token.id as string,
+        name: token.name as string,
+        email: token.email as string,
+        role: token.role as string,
+      };
+      return session;
+    },
+  },
+
+  pages: {
+    signIn: "/auth",
+  },
+
+  secret: process.env.NEXTAUTH_SECRET,
+});
+
+// ✅ FIXED: Export the individual HTTP methods directly
+export { authHandler as GET, authHandler as POST };
