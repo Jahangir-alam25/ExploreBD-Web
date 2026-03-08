@@ -453,7 +453,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex">
       {/* LEFT */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-primary items-center justify-center overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-primary items-center justify-center overflow-hidden">
         <div className="relative z-10 text-center px-12">
           <MapPin className="h-16 w-16 text-primary-foreground mx-auto mb-6" />
           <h1 className="text-4xl font-bold text-primary-foreground mb-4">
@@ -652,7 +652,7 @@ const Register = () => {
                       <Checkbox id="a-terms" checked={agreeTerms} onCheckedChange={(c) => setAgreeTerms(!!c)} className="mt-0.5" />
                       <Label htmlFor="a-terms" className="text-xs font-normal cursor-pointer">I agree to the Terms and Privacy Policy</Label>
                     </div>
-                    <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground" disabled={isLoading}>
+                    <Button type="submit" className="w-full bg-primary text-primary-foreground" disabled={isLoading}>
                       {isLoading ? "Creating..." : "Request Admin Access"} {!isLoading && <ArrowRight className="h-4 w-4 ml-1" />}
                     </Button>
                   </form>

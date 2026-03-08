@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import Link from "next/link";
 
 const destinations = [
   { title: "COX'S BAZAR", image: "/coxs-bazar.jpg" },
@@ -44,10 +45,10 @@ export default function Navbar() {
 
       {/* Navbar (unchanged) */}
       <div className="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-10 py-6">
-        <div className="flex items-center gap-2 text-white text-xl font-bold">
+        <Link href="/" className="flex items-center gap-2 text-white text-xl font-bold">
           <div className="border-2 border-white p-2 rounded"><MapPin /></div>
             Explore<span className="text-yellow-400">BD</span>
-        </div>
+        </Link>
 
         <div className="hidden md:flex items-center bg-white/20 backdrop-blur-md rounded-lg px-4 py-2 w-[400px]">
           <Search className="text-white mr-2" size={18} />
@@ -59,14 +60,14 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-8 text-white">
-          <a href="#">News</a>
-          <a href="#">Destination</a>
-          <a href="#">Blog</a>
-          <a href="#">Contact</a>
+          <Link href="/">Home</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
         </div>
 
-        <button className="bg-yellow-400 px-6 py-2 rounded font-semibold">
-<a href="/auth">Login</a>
+        <button className="bg-primary px-6 py-2 rounded font-semibold">
+          <Link href="/auth/login">Login</Link>
         </button>
       </div>
 
