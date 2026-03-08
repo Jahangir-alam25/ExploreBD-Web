@@ -10,12 +10,15 @@ interface RegisterBody {
   name: string;
   email: string;
   password: string;
+  phone: string;
+  adminCode: string;
+  role: string;
 }
 
 export async function POST(req: Request) {
   try {
     const body: RegisterBody = await req.json();
-    const { name, email, password } = body;
+    const { name, email, password, phone, adminCode, role } = body;
 
     // Input validation
     if (!name?.trim() || !email?.trim() || !password) {
@@ -54,7 +57,9 @@ export async function POST(req: Request) {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       password: hashedPassword,
-      role: "user",
+      phone: phone.trim(),
+      role: role || "user",
+      adminCode: adminCode,
       membershipType: "",
       otp,
       otpExpires,

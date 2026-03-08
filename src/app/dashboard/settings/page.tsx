@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const notificationSettings = [
   { label: "Email Notifications", description: "Receive booking confirmations and updates via email", defaultChecked: true },
@@ -19,6 +20,7 @@ const privacySettings = [
 ];
 
 const SettingsPage = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
       <Settings className="h-6 w-6 text-primary" /> Settings
@@ -109,6 +111,7 @@ const SettingsPage = () => (
       </Card>
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default SettingsPage;

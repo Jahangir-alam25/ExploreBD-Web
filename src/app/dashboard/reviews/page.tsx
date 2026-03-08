@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const reviews = [
   { id: 1, tour: "Cox's Bazar Beach Tour", rating: 5, comment: "Absolutely amazing experience! The beach was pristine and the sunset was breathtaking. Our guide Kamal was incredibly knowledgeable and made the trip unforgettable.", date: "Feb 12, 2025", likes: 12, replies: 3, helpful: true },
@@ -14,6 +15,7 @@ const reviews = [
 const avgRating = (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1);
 
 const Reviews = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -75,6 +77,7 @@ const Reviews = () => (
       ))}
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default Reviews;

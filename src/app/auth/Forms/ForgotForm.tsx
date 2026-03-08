@@ -1,19 +1,21 @@
-"use client";
+'use client';
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 type Props = {
-  onSubmit: (email: string) => void;
-  onBack?: () => void;
+  onSubmit: (email: string) => void; // called when OTP is generated
+  onBack?: () => void;               // optional "Back to Login"
 };
 
 export default function ForgotForm({ onSubmit, onBack }: Props) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState(""); // shows messages like "OTP sent"
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // Auto-focus email input
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -26,6 +28,7 @@ export default function ForgotForm({ onSubmit, onBack }: Props) {
 
     setLoading(true);
     setError("");
+    setInfo("");
 
     try {
       const res = await fetch("/api/send-otp", {
@@ -35,13 +38,24 @@ export default function ForgotForm({ onSubmit, onBack }: Props) {
       });
 
       const data = await res.json();
-      if (!res.ok) return setError(data.error || "Failed to send OTP");
 
-      alert("OTP sent to your email");
+      if (!res.ok) {
+        setError(data.error || "Failed to send OTP");
+        return;
+      }
+
+      if (data.emailSent) {
+        setInfo("OTP sent to your email");
+      } else {
+        setInfo("OTP generated but email failed. You can still proceed.");
+      }
+
+      // Call parent callback
       onSubmit(email);
+
     } catch (err) {
-      // console.error(err);
-      setError("Something went wrong");
+      console.error("ForgotForm handleSubmit error:", err);
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -71,6 +85,7 @@ export default function ForgotForm({ onSubmit, onBack }: Props) {
         } focus:outline-none focus:ring-2 focus:ring-green-500`}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
+      {info && <p className="text-green-400 text-sm">{info}</p>}
 
       <motion.button
         type="submit"

@@ -75,68 +75,73 @@
    Global Variables
    =============================== */
 :root {
+
   --radius: 0.625rem;
 
   /* Light Theme Backgrounds */
-  --background: rgb(255, 255, 255); /* White */
-  --background-secondary: rgb(200 25% 15%);
-  --background-tertiary: rgb(245, 245, 245);
-  --foreground: rgb(37, 37, 37); /* Dark text */
-  --foreground-secondary: rgb(108, 122, 137);
-  --foreground-muted: rgb(128, 140, 156);
+  --background: rgb(247, 245, 239); /* Cream */
+  --background-secondary: rgb(241, 232, 214);
+  --background-tertiary: rgb(243, 239, 230);
+
+  --foreground: rgb(29, 42, 48); 
+  --foreground-secondary: rgb(90, 105, 110);
+  --foreground-muted: rgb(120, 130, 135);
 
   /* Card */
   --card: rgb(255, 255, 255);
   --card-secondary: rgb(250, 250, 250);
-  --card-foreground: rgb(37, 37, 37);
+  --card-foreground: rgb(29, 42, 48);
 
-  /* Brand / Primary Colors (Orange) */
-  --primary: rgb(255, 140, 0); /* Orange */
-  --primary-dark: rgb(204, 112, 0); /* Darker Orange */
-  --primary-light: rgb(255, 180, 80); /* Lighter Orange */
-  --primary-foreground: rgb(255, 255, 255); /* Text on orange */
+  /* Primary (Teal) */
+  --primary: rgb(29, 124, 115);
+  --primary-dark: rgb(20, 100, 93);
+  --primary-light: rgb(61, 169, 158);
+  --primary-foreground: rgb(255, 255, 255);
 
-  --secondary: rgb(245, 245, 245); /* Light Gray */
-  --secondary-foreground: rgb(37, 37, 37); /* Dark text */
+  /* Secondary */
+  --secondary: rgb(241, 232, 214);
+  --secondary-foreground: rgb(29, 42, 48);
 
-  --accent: rgb(255, 140, 0); /* Accent matches primary */
-  --accent-foreground: rgb(255, 255, 255);
-  --accent-glow: rgba(255, 140, 0, 0.3);
+  /* Accent (Gold) */
+  --accent: rgb(233, 166, 58);
+  --accent-foreground: rgb(29, 42, 48);
+  --accent-glow: rgba(233, 166, 58, 0.3);
 
   /* Status */
-  --destructive: rgb(190, 48, 48);
+  --destructive: rgb(220, 38, 38);
   --destructive-foreground: rgb(255, 255, 255);
-  --success: rgb(0, 204, 102);
-  --warning: rgb(255, 217, 102);
+  --success: rgb(34, 197, 94);
+  --warning: rgb(234, 179, 8);
 
   /* Interactive */
-  --border: rgb(235, 235, 235);
-  --border-light: rgb(210, 220, 235);
-  --input: rgb(235, 235, 235);
-  --ring: rgb(255, 140, 0);
+  --border: rgb(228, 222, 210);
+  --border-light: rgb(220, 214, 200);
+  --input: rgb(228, 222, 210);
+  --ring: rgb(29, 124, 115);
 
   /* Popovers / Muted */
   --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(37, 37, 37);
-  --muted: rgb(247, 247, 247);
-  --muted-foreground: rgb(128, 128, 128);
+  --popover-foreground: rgb(29, 42, 48);
+  --muted: rgb(243, 239, 230);
+  --muted-foreground: rgb(120, 130, 135);
 
-  /* Charts (Optional) */
-  --chart-1: rgb(255, 140, 0); /* Orange */
-  --chart-2: rgb(255, 200, 100);
-  --chart-3: rgb(255, 160, 50);
-  --chart-4: rgb(255, 180, 80);
-  --chart-5: rgb(255, 120, 0);
+  /* Charts */
+  --chart-1: rgb(29, 124, 115);
+  --chart-2: rgb(61, 169, 158);
+  --chart-3: rgb(233, 166, 58);
+  --chart-4: rgb(224, 123, 31);
+  --chart-5: rgb(212, 87, 44);
 
   /* Sidebar */
   --sidebar: rgb(255, 255, 255);
-  --sidebar-foreground: rgb(37, 37, 37);
-  --sidebar-primary: rgb(255, 140, 0);
+  --sidebar-foreground: rgb(29, 42, 48);
+  --sidebar-primary: rgb(29, 124, 115);
   --sidebar-primary-foreground: rgb(255, 255, 255);
-  --sidebar-accent: rgb(255, 140, 0);
-  --sidebar-accent-foreground: rgb(255, 255, 255);
-  --sidebar-border: rgb(235, 235, 235);
-  --sidebar-ring: rgb(255, 140, 0);
+  --sidebar-accent: rgb(233, 166, 58);
+  --sidebar-accent-foreground: rgb(29, 42, 48);
+  --sidebar-border: rgb(228, 222, 210);
+  --sidebar-ring: rgb(29, 124, 115);
+
 }
 
 
@@ -144,58 +149,45 @@
    Dark Theme Variables
    =============================== */
 .dark {
-  --background: rgb(20, 22, 25);
-  --background-secondary: rgb(25, 27, 30);
-  --background-tertiary: rgb(30, 32, 35);
-  --foreground: rgb(245, 245, 245);
-  --foreground-secondary: rgb(200, 200, 200);
-  --foreground-muted: rgb(170, 170, 170);
+ 
+  --background: rgb(15, 23, 26);
+  --background-secondary: rgb(24, 33, 38);
+  --background-tertiary: rgb(30, 40, 45);
 
-  --card: rgb(25, 27, 30);
-  --card-secondary: rgb(30, 32, 35);
-  --card-foreground: rgb(245, 245, 245);
+  --foreground: rgb(243, 239, 230);
+  --foreground-secondary: rgb(200, 205, 210);
+  --foreground-muted: rgb(150, 160, 165);
 
-  --primary: rgb(0, 255, 128);
-  --primary-dark: rgb(0, 204, 102);
-  --primary-light: rgb(102, 255, 178);
-  --primary-foreground: rgb(20, 22, 25);
+  --card: rgb(24, 33, 38);
+  --card-secondary: rgb(30, 40, 45);
+  --card-foreground: rgb(243, 239, 230);
 
-  --secondary: rgb(38, 40, 45);
-  --secondary-foreground: rgb(245, 245, 245);
+  --primary: rgb(51, 179, 167);
+  --primary-dark: rgb(29, 124, 115);
+  --primary-light: rgb(90, 210, 195);
+  --primary-foreground: rgb(15, 23, 26);
 
-  --accent: rgb(0, 255, 128);
-  --accent-foreground: rgb(20, 22, 25);
-  --accent-glow: rgb(0, 255, 128);
+  --secondary: rgb(35, 45, 50);
+  --secondary-foreground: rgb(243, 239, 230);
 
-  --destructive: rgb(220, 38, 38);
-  --destructive-foreground: rgb(245, 245, 245);
-  --success: rgb(0, 255, 128);
-  --warning: rgb(255, 217, 102);
+  --accent: rgb(217, 154, 46);
+  --accent-foreground: rgb(15, 23, 26);
+  --accent-glow: rgba(217, 154, 46, 0.4);
 
-  --border: rgb(50, 52, 58);
-  --border-light: rgb(60, 63, 70);
-  --input: rgb(38, 40, 45);
-  --ring: rgb(0, 255, 128);
+  --border: rgb(50, 60, 65);
+  --border-light: rgb(60, 70, 75);
+  --input: rgb(35, 45, 50);
+  --ring: rgb(51, 179, 167);
 
-  --gradient-primary: linear-gradient(135deg, rgb(0, 255, 128), rgb(0, 204, 102));
-  --gradient-hero: linear-gradient(135deg, rgb(20, 22, 25) 0%, rgb(30, 32, 35) 100%);
-  --gradient-card: linear-gradient(135deg, rgb(25, 27, 30) 0%, rgb(30, 32, 35) 100%);
-  --gradient-glow: radial-gradient(circle at center, rgba(0, 255, 128, 0.2) 0%, transparent 70%);
+  --sidebar: rgb(24, 33, 38);
+  --sidebar-foreground: rgb(243, 239, 230);
+  --sidebar-primary: rgb(51, 179, 167);
+  --sidebar-primary-foreground: rgb(15, 23, 26);
+  --sidebar-accent: rgb(217, 154, 46);
+  --sidebar-accent-foreground: rgb(15, 23, 26);
+  --sidebar-border: rgb(50, 60, 65);
+  --sidebar-ring: rgb(51, 179, 167);
 
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 20px rgba(0, 255, 128, 0.3);
-  --shadow-glow-strong: 0 0 40px rgba(0, 255, 128, 0.4);
-
-  --sidebar: rgb(25, 27, 30);
-  --sidebar-foreground: rgb(245, 245, 245);
-  --sidebar-primary: rgb(0, 255, 128);
-  --sidebar-primary-foreground: rgb(245, 245, 245);
-  --sidebar-accent: rgb(0, 255, 128);
-  --sidebar-accent-foreground: rgb(245, 245, 245);
-  --sidebar-border: rgb(50, 52, 58);
-  --sidebar-ring: rgb(0, 255, 128);
 }
 
 /* ===============================

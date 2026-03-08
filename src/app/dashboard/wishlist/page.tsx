@@ -2,6 +2,7 @@ import { Heart, MapPin, Clock, Star, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const wishlist = [
   { id: 1, title: "Bandarban Hill Trek", location: "Bandarban", price: "৳6,500", rating: 4.7, duration: "3 Days", image: "/images/sajek-valley.jpg", available: true },
@@ -13,6 +14,7 @@ const wishlist = [
 ];
 
 const Wishlist = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -50,6 +52,7 @@ const Wishlist = () => (
       ))}
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default Wishlist;

@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const Profile = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
       <User className="h-6 w-6 text-primary" /> My Profile
@@ -107,6 +109,7 @@ const Profile = () => (
       </Card>
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default Profile;

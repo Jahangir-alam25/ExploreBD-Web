@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Save, Globe, Bell, Shield, CreditCard, Mail, Palette } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import AdminRoute from "@/app/routes/AdminRoute";
 
 const AdminSettings = () => {
   const { toast } = useToast();
@@ -41,6 +42,7 @@ const AdminSettings = () => {
   };
 
   return (
+    <AdminRoute>
     <div className="space-y-6">
       <Tabs defaultValue="general">
         <TabsList className="mb-6">
@@ -157,6 +159,7 @@ const AdminSettings = () => {
         </TabsContent>
       </Tabs>
     </div>
+    </AdminRoute>
   );
 };
 

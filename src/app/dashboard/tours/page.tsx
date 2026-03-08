@@ -2,6 +2,7 @@ import { Map, MapPin, Clock, Star, Users, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const tours = [
   { id: 1, title: "Cox's Bazar 3-Day Beach Tour", duration: "3 Days", price: "৳8,500", originalPrice: "৳10,000", status: "Available", rating: 4.8, reviews: 124, location: "Cox's Bazar", maxGroup: 15, booked: 11, image: "/coxs-bazar.jpg", featured: true },
@@ -13,6 +14,7 @@ const tours = [
 ];
 
 const Tours = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between flex-wrap gap-3">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -72,6 +74,7 @@ const Tours = () => (
       ))}
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default Tours;

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 
 
@@ -29,6 +30,7 @@ const Destinations = () => {
   }, []);
 
   return (
+    <PrivateRoute>
      <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -61,6 +63,7 @@ const Destinations = () => {
       ))}
     </div>
   </div>
+  </PrivateRoute>
   );
 }
 

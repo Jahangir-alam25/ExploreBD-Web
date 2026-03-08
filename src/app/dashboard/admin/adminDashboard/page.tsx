@@ -8,6 +8,7 @@ import {
   CalendarCheck, Star, Eye, DollarSign, MapPin, Clock
 } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import AdminRoute from "@/app/routes/AdminRoute";
 
 const revenueData = [
   { month: "Jan", revenue: 45000, bookings: 32 },
@@ -54,6 +55,7 @@ const AdminDashboard = () => {
   ];
 
   return (
+    <AdminRoute>
     <div className="space-y-6">
       {/* Time Range Filter */}
       <div className="flex items-center gap-2">
@@ -207,6 +209,7 @@ const AdminDashboard = () => {
         </Card>
       </div>
     </div>
+    </AdminRoute>
   );
 };
 

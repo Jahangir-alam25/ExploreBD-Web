@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CalendarCheck, MapPin, Users, Clock, Download, Eye } from "lucide-react";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const bookings = [
   { id: "BK-001", tour: "Cox's Bazar Beach Tour", location: "Cox's Bazar", date: "2025-03-15", persons: 2, total: "৳8,500", status: "Confirmed", duration: "3 Days", guide: "Kamal Hossain" },
@@ -15,6 +16,7 @@ const statusColor = (s: string) =>
   s === "Confirmed" ? "default" : s === "Pending" ? "secondary" : "outline";
 
 const MyBookings = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -70,6 +72,7 @@ const MyBookings = () => (
       ))}
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default MyBookings;

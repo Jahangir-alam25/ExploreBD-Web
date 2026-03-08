@@ -3,6 +3,7 @@ import { CalendarCheck, Map, CreditCard, Star, TrendingUp, Users, ArrowUpRight, 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import PrivateRoute from "../routes/PrivateRoute";
 
 const stats = [
   { label: "Total Bookings", value: "12", icon: CalendarCheck, color: "text-primary", bg: "bg-primary/10", change: "+3", up: true },
@@ -35,6 +36,7 @@ const upcomingTours = [
 
 const Dashboard = () => {
   return (
+    <PrivateRoute>
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -155,6 +157,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
     </div>
+    </PrivateRoute>
   );
 };
 

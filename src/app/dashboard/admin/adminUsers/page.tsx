@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogC
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Search, MoreHorizontal, Eye, Ban, ShieldCheck, Mail, UserCheck, UserX } from "lucide-react";
+import AdminRoute from "@/app/routes/AdminRoute";
 
 const initialUsers = [
   { id: 1, name: "Rahim Ahmed", email: "rahim@example.com", role: "User", status: "Active", bookings: 12, spent: 85000, joined: "2024-01-15", lastActive: "2 hours ago" },
@@ -43,6 +44,7 @@ const AdminUsers = () => {
   };
 
   return (
+    <AdminRoute>
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
@@ -157,6 +159,7 @@ const AdminUsers = () => {
         </CardContent>
       </Card>
     </div>
+    </AdminRoute>
   );
 };
 

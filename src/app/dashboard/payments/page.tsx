@@ -3,6 +3,7 @@ import { Card, CardContent} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const payments = [
   { id: "PAY-001", tour: "Cox's Bazar Beach Tour", amount: "৳8,500", date: "Mar 15, 2025", method: "bKash", status: "Paid" },
@@ -18,6 +19,7 @@ const totalPending = "৳22,000";
 const totalRefunded = "৳3,200";
 
 const Payments = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -86,6 +88,7 @@ const Payments = () => (
       </CardContent>
     </Card>
   </div>
+  </PrivateRoute>
 );
 
 export default Payments;

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const faqs = [
   { q: "How do I cancel a booking?", a: "Go to My Bookings page and click on the booking you want to cancel. You can cancel up to 48 hours before the tour date for a full refund." },
@@ -22,6 +23,7 @@ const contactMethods = [
 ];
 
 const Support = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
       <HelpCircle className="h-6 w-6 text-primary" /> Help & Support
@@ -94,6 +96,7 @@ const Support = () => (
       </Card>
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default Support;

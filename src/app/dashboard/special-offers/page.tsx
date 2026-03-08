@@ -2,6 +2,7 @@ import { Tag, Clock, Percent, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import PrivateRoute from "@/app/routes/PrivateRoute";
 
 const offers = [
   { id: 1, title: "Summer Beach Blast", discount: "25%", tour: "Cox's Bazar 3-Day Tour", originalPrice: "৳10,000", discountedPrice: "৳7,500", expires: "Jun 30, 2025", daysLeft: 117, code: "SUMMER25", image: "/coxs-bazar.jpg" },
@@ -11,6 +12,7 @@ const offers = [
 ];
 
 const SpecialOffers = () => (
+  <PrivateRoute>
   <div className="space-y-6">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2">
@@ -52,6 +54,7 @@ const SpecialOffers = () => (
       ))}
     </div>
   </div>
+  </PrivateRoute>
 );
 
 export default SpecialOffers;
