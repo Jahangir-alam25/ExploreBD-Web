@@ -34,6 +34,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 
 interface SidebarProps {
@@ -44,61 +46,61 @@ interface SidebarProps {
 const Sidebar = ({ collapsed: collapsedProp, setCollapsed: setCollapsedProp }: SidebarProps) => {
   const { user, logout } = useAuth();
   const { activeTab, setActiveTab } = useActiveTab();
+  const router = useRouter();
+  // const user = {
+  //   name: "Rahim Ahmed",
+  //   email: "rahim@example.com",
+  //   role: "User",
+  // };
+  const sidebarItems = [
+    // Main
+    { id: 'overview', name: 'Dashboard', icon: BarChart3, section: 'main', path: '/dashboard' },
 
-// const user = {
-//   name: "Rahim Ahmed",
-//   email: "rahim@example.com",
-//   role: "User",
-// };
-const sidebarItems = [
-  // Main
-  { id: 'overview', name: 'Dashboard', icon: BarChart3, section: 'main', path: '/dashboard' },
+    // Booking Related
+    { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/my-bookings' },
+    { id: 'wishlist', name: 'Wishlist', icon: Heart, section: 'booking', path: '/dashboard/wishlist' },
+    { id: 'reviews', name: 'My Reviews', icon: Star, section: 'booking', path: '/dashboard/reviews' },
 
-  // Booking Related
-  { id: 'my-bookings', name: 'My Bookings', icon: Calendar, section: 'booking', path: '/dashboard/my-bookings' },
-  { id: 'wishlist', name: 'Wishlist', icon: Heart, section: 'booking', path: '/dashboard/wishlist' },
-  { id: 'reviews', name: 'My Reviews', icon: Star, section: 'booking', path: '/dashboard/reviews' },
+    // Explore
+    { id: 'tours', name: 'All Tours', icon: Map, section: 'explore', path: '/dashboard/tours' },
+    { id: 'destinations', name: 'Destinations', icon: MapPin, section: 'explore', path: '/dashboard/destinations' },
+    { id: 'offers', name: 'Special Offers', icon: Tag, section: 'explore', path: '/dashboard/special-offers' },
 
-  // Explore
-  { id: 'tours', name: 'All Tours', icon: Map, section: 'explore', path: '/dashboard/tours' },
-  { id: 'destinations', name: 'Destinations', icon: MapPin, section: 'explore', path: '/dashboard/destinations' },
-  { id: 'offers', name: 'Special Offers', icon: Tag, section: 'explore', path: '/dashboard/special-offers' },
+    // Payments
+    { id: 'payment-history', name: 'Payment History', icon: CreditCard, section: 'payment', path: '/dashboard/payments' },
 
-  // Payments
-  { id: 'payment-history', name: 'Payment History', icon: CreditCard, section: 'payment', path: '/dashboard/payments' },
+    // Account
+    { id: 'profile', name: 'Profile', icon: User, section: 'account', path: '/dashboard/profile' },
+    { id: 'settings', name: 'Settings', icon: Settings, section: 'account', path: '/dashboard/settings' },
 
-  // Account
-  { id: 'profile', name: 'Profile', icon: User, section: 'account', path: '/dashboard/profile' },
-  { id: 'settings', name: 'Settings', icon: Settings, section: 'account', path: '/dashboard/settings' },
+    // Support
+    { id: 'support', name: 'Support / Help', icon: HelpCircle, section: 'support', path: '/dashboard/support' },
 
-  // Support
-  { id: 'support', name: 'Support / Help', icon: HelpCircle, section: 'support', path: '/dashboard/support' },
+    // Admin (Role Based)
 
-  // Admin (Role Based)
- 
-  { id: "dashboard", name: "Dashboard", icon: LayoutDashboard, section: "admin", path: "/dashboard/admin/adminDashboard" },
-  { id: "manage-tours", name: "Manage Tours", icon: Package, section: "admin", path: "/dashboard/admin/adminTours" },
-  { id: "bookings", name: "Bookings", icon: CalendarCheck, section: "admin", path: "/dashboard/admin/adminBookings" },
-  { id: "users", name: "Users", icon: Users, section: "admin", path: "/dashboard/admin/adminUsers" },
-  { id: "destinations", name: "Destinations", icon: MapPin, section: "admin", path: "/dashboard/admin/adminDestinations" },
-  { id: "reviews", name: "Reviews", icon: Star, section: "admin", path: "/dashboard/admin/adminReviews" },
-  { id: "payments", name: "Payments", icon: CreditCard, section: "admin", path: "/dashboard/admin/adminPayments" },
-  { id: "blog-posts", name: "Blog Posts", icon: FileText, section: "admin", path: "/dashboard/admin/adminBlog" },
-  { id: "reports", name: "Reports", icon: BarChart3, section: "admin", path: "/dashboard/admin/adminReports" },
-  { id: "settings", name: "Settings", icon: Settings, section: "admin", path: "/dashboard/admin/adminSettings" },
-];
+    { id: "dashboard", name: "Dashboard", icon: LayoutDashboard, section: "admin", path: "/dashboard/admin/adminDashboard" },
+    { id: "manage-tours", name: "Manage Tours", icon: Package, section: "admin", path: "/dashboard/admin/adminTours" },
+    { id: "bookings", name: "Bookings", icon: CalendarCheck, section: "admin", path: "/dashboard/admin/adminBookings" },
+    { id: "users", name: "Users", icon: Users, section: "admin", path: "/dashboard/admin/adminUsers" },
+    { id: "destinations", name: "Destinations", icon: MapPin, section: "admin", path: "/dashboard/admin/adminDestinations" },
+    { id: "reviews", name: "Reviews", icon: Star, section: "admin", path: "/dashboard/admin/adminReviews" },
+    { id: "payments", name: "Payments", icon: CreditCard, section: "admin", path: "/dashboard/admin/adminPayments" },
+    { id: "blog-posts", name: "Blog Posts", icon: FileText, section: "admin", path: "/dashboard/admin/adminBlog" },
+    { id: "reports", name: "Reports", icon: BarChart3, section: "admin", path: "/dashboard/admin/adminReports" },
+    { id: "settings", name: "Settings", icon: Settings, section: "admin", path: "/dashboard/admin/adminSettings" },
+  ];
 
 
 
-const sections = {
-  main: 'Overview',
-  booking: 'My Bookings',
-  explore: 'Explore Tours',
-  payment: 'Payments',
-  support: 'Support',
-  account: 'Account',
-  admin: 'Administration',
-};
+  const sections = {
+    main: 'Overview',
+    booking: 'My Bookings',
+    explore: 'Explore Tours',
+    payment: 'Payments',
+    support: 'Support',
+    account: 'Account',
+    admin: 'Administration',
+  };
 
   // Role-based filtering
   // const filteredSidebarItems = sidebarItems.filter(item => {
@@ -108,25 +110,25 @@ const sections = {
   //   return true;
   // });
 
- const filteredSidebarItems = sidebarItems.filter((item) => {
+  const filteredSidebarItems = sidebarItems.filter((item) => {
 
-  // Admin routes
-  if (item.section === "admin") {
-    return user?.role === "System Admin" || user?.role === "Admin";
-  }
+    // Admin routes
+    if (item.section === "admin") {
+      return user?.role === "System Admin" || user?.role === "Admin";
+    }
 
-  // Non-admin routes (user routes)
-  if (user?.role === "user") {
-    return item.section !== "admin";
-  }
+    // Non-admin routes (user routes)
+    if (user?.role === "user") {
+      return item.section !== "admin";
+    }
 
-  // If admin, hide normal user sections
-  if (user?.role === "System Admin" || user?.role === "Admin") {
-    return item.section === "admin";
-  }
+    // If admin, hide normal user sections
+    if (user?.role === "System Admin" || user?.role === "Admin") {
+      return item.section === "admin";
+    }
 
-  return false;
-});
+    return false;
+  });
 
   const groupedItems = filteredSidebarItems.reduce((acc, item) => {
     if (!acc[item.section]) acc[item.section] = [];
@@ -191,7 +193,7 @@ const sections = {
     if (setCollapsedProp) setCollapsedProp(newCollapsed);
   };
 
-   // Get user initials for avatar
+  // Get user initials for avatar
   const getUserInitials = (name: string): string => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
@@ -224,6 +226,7 @@ const sections = {
     }
   };
 
+
   return (
     <aside
       ref={sidebarRef}
@@ -237,7 +240,7 @@ const sections = {
             <Bot className="h-5 w-5 text-primary-foreground" />
           </div>
           {!collapsed && <Link href="/" className="flex items-center gap-2 text-black dark:text-white text-xl font-bold">
-             <div className="border-2 border-black dark:border-white p-2 rounded"><MapPin /></div>
+            <div className="border-2 border-black dark:border-white p-2 rounded"><MapPin /></div>
             Explore<span className="text-yellow-400">BD</span></Link>}
         </div>
         <button
@@ -248,20 +251,20 @@ const sections = {
         </button>
       </div>
 
-        {/* User info */}
-        {!collapsed && (
-          <div className="px-4 py-4 border-b border-border">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10 border-2 border-primary/20">
-                <AvatarFallback className="bg-primary/10 text-primary font-semibold">{getUserInitials( user?.name || user?.email || 'U')}</AvatarFallback>
-              </Avatar>
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground truncate">{user?.name}</p>
-                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
-              </div>
+      {/* User info */}
+      {!collapsed && (
+        <div className="px-4 py-4 border-b border-border">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10 border-2 border-primary/20">
+              <AvatarFallback className="bg-primary/10 text-primary font-semibold">{getUserInitials(user?.name || user?.email || 'U')}</AvatarFallback>
+            </Avatar>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground truncate">{user?.name}</p>
+              <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 px-2 py-4 space-y-6 overflow-y-auto custom-scroll">
@@ -287,8 +290,32 @@ const sections = {
         ))}
       </nav>
 
-     
-      <div className="p-4 border-t border-border flex-shrink-0">
+
+      <div className="p-4 space-y-1 border-t border-border flex-shrink-0">
+        {/* <Button
+          onClick={() => router.push("/dashboard")}
+          className={cn(
+            "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-black hover:bg-muted w-full transition-colors",
+            collapsed && "justify-center px-2"
+          )}
+        >
+          <LayoutDashboard className="h-5 w-5 shrink-0" />
+          {!collapsed && <span>User Dashboard</span>}
+        </Button> */}
+
+        {/* {user?.role === "System Admin" || user?.role === "Admin" ? (
+          <Button
+            onClick={() => router.push("/dashboard/admin/adminDashboard")}
+            className={cn(
+              "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-black hover:bg-muted w-full transition-colors",
+              collapsed && "justify-center px-2"
+            )}
+          >
+            <Shield className="h-5 w-5 shrink-0" />
+            {!collapsed && <span>User Dashboard</span>}
+          </Button>
+        ) : null} */}
+
         <Button variant="outline" size="sm" className="w-full hover:scale-105 transition-transform" onClick={handleLogout}>
           <LogOut className="h-3 w-3 mr-2" />
           {!collapsed && 'Sign Out'}
